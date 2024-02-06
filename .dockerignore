@@ -1,0 +1,17 @@
+# Ignore the git directory.
+.git/
+
+# Ignore the Dockerfile.
+Dockerfile
+
+# Ignore the .dockerignore file.
+.dockerignore
+
+# Ignore all markdown files.
+*.md
+
+# Ignore all SQL scripts.
+*.sql
+
+# Ignore all test files.
+*_test.go
