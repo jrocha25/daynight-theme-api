@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"log"
 	"net/http"
 
 	"daynight-theme.dev/api/lib"
@@ -8,15 +9,26 @@ import (
 )
 
 func GetTimesHandler(w http.ResponseWriter, r *http.Request) {
-	// vars := mux.Vars(r)
-	// location := vars["location"]
+	location := r.URL.Query().Get("location")
 
-	//TODO: Verify location is valid
+	log.Println("Fetching day/night times for", location)
 
-	lat := "38.907192"
-	lng := "-77.036873"
+	// Get the country info
+	countryInfo, err := lib.GetCountryInfo(location)
+	if err != nil {
+		log.Println("Error fetching country info:", err)
+		response := models.APIResponse{
+			Success: false,
+			Message: "Error fetching country info",
+		}
+		err = lib.WriteJSONResponse(w, response, http.StatusInternalServerError)
+		if err != nil {
+			http.Error(w, "Error writing JSON response", http.StatusInternalServerError)
+		}
+		return
+	}
 
-	returnedTimes, err := lib.GetDayNightTimes(lat, lng)
+	returnedTimes, err := lib.GetDayNightTimes(countryInfo.Latitude, countryInfo.Longitude)
 	if err != nil {
 		response := models.APIResponse{
 			Success: false,

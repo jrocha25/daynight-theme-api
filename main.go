@@ -26,12 +26,12 @@ func main() {
 	defer dbClient.Close()
 	log.Println("Database connection established!")
 
-	log.Println("Seeding country info...")
-	err = lib.SeedDatabase()
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Println("Done seeding country info!")
+	// log.Println("Seeding country info...")
+	// err = lib.SeedDatabase()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// log.Println("Done seeding country info!")
 
 	r := routes.MainRouter()
 
