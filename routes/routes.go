@@ -10,6 +10,7 @@ func MainRouter() *mux.Router {
 	subRouter := r.PathPrefix("/v1").Subrouter()
 
 	subRouter.HandleFunc("/times", handlers.GetTimesHandler).Methods("GET")
+	subRouter.HandleFunc("/countries", handlers.GetAllCountriesHandler).Methods("GET")
 
 	return r
 }

@@ -13,3 +13,25 @@ func GetCountryInfo(name string) (models.Country, error) {
 
 	return countryInfo, nil
 }
+
+func GetAllCountries() ([]models.Country, error) {
+	var countries []models.Country
+
+	// Get all the countries from the database
+	rows, err := dbClient.Query("SELECT name FROM countries")
+	if err != nil {
+		return []models.Country{}, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var country models.Country
+		err = rows.Scan(&country.Name)
+		if err != nil {
+			return []models.Country{}, err
+		}
+		countries = append(countries, country)
+	}
+
+	return countries, nil
+}
