@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"log"
 	"net/http"
 
 	"daynight-theme.dev/api/lib"
@@ -21,6 +22,8 @@ func GetAllCountriesHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+
+	log.Println("Countries fetched successfully")
 
 	var returnedCountries []models.APICountry
 	for _, country := range countries {
