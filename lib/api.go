@@ -11,8 +11,8 @@ import (
 
 const API_URL = "https://api.sunrisesunset.io/json"
 
-func GetDayNightTimes(lat float64, lng float64) (models.DayNightObj, error) {
-	query := "?lat=" + fmt.Sprintf("%f", lat) + "&lng=" + fmt.Sprintf("%f", lng) + "&date=today"
+func GetDayNightTimes(lat string, lng string) (models.DayNightObj, error) {
+	query := "?lat=" + fmt.Sprintf("%s", lat) + "&lng=" + fmt.Sprintf("%s", lng) + "&date=today"
 
 	resp, err := http.Get(API_URL + query)
 	if err != nil {

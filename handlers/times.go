@@ -13,8 +13,8 @@ func GetTimesHandler(w http.ResponseWriter, r *http.Request) {
 
 	//TODO: Verify location is valid
 
-	lat := 38.907192
-	lng := -77.036873
+	lat := "38.907192"
+	lng := "-77.036873"
 
 	returnedTimes, err := lib.GetDayNightTimes(lat, lng)
 	if err != nil {
