@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"daynight-theme.dev/api/models"
 )
@@ -34,8 +35,21 @@ func GetDayNightTimes(lat string, lng string) (models.DayNightObj, error) {
 	var dayNightObj models.DayNightObj
 
 	dayNightObj.Date = apiResponse.Results.Date
-	dayNightObj.Sunrise = apiResponse.Results.Sunrise
-	dayNightObj.Sunset = apiResponse.Results.Sunset
+
+	// Parse the sunrise time and format it in 24-hour format
+	sunrise, err := time.Parse("3:04:05 PM", apiResponse.Results.Sunrise)
+	if err != nil {
+		return models.DayNightObj{}, err
+	}
+	dayNightObj.Sunrise = sunrise.Format("15:04:05")
+
+	// Parse the sunset time and format it in 24-hour format
+	sunset, err := time.Parse("3:04:05 PM", apiResponse.Results.Sunset)
+	if err != nil {
+		return models.DayNightObj{}, err
+	}
+	dayNightObj.Sunset = sunset.Format("15:04:05")
+
 	dayNightObj.Timezone = apiResponse.Results.Timezone
 
 	return dayNightObj, nil
