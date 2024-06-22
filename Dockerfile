@@ -18,7 +18,10 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /home/appuser
 
 COPY --from=build /app/app .
+COPY entrypoint.sh ./entrypoint.sh
+
+RUN chmod +x ./entrypoint.sh
 
 USER appuser
 
-CMD ["./app"]
+ENTRYPOINT ["./entrypoint.sh"]
